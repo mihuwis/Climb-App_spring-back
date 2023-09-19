@@ -1,26 +1,33 @@
 package com.example.progresspoint.climbingappbackend.model.climbingRoutes;
 
 import com.example.progresspoint.climbingappbackend.model.BaseEntity;
+import com.example.progresspoint.climbingappbackend.model.NamedEntity;
+import com.example.progresspoint.climbingappbackend.model.climbingSessions.ClimbingSession;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class ClimbingLine extends BaseEntity {
+public class ClimbingLine extends NamedEntity {
 
-    private String routeName;
     @ManyToOne
     @JoinColumn(name = "climbingArea_id", nullable = false)
     @JsonIgnoreProperties("climbingLines")
     private ClimbingArea area;
 
+    @ManyToMany
+    private Set<ClimbingSession> climbingSession;
+
     private int moves;
 
     private int grade;
 
-    public ClimbingLine(String routeName, ClimbingArea area, int moves, int grade) {
-        this.routeName = routeName;
+    public ClimbingLine(String name, ClimbingArea area, Set<ClimbingSession> climbingSession, int moves, int grade) {
+        super(name);
         this.area = area;
+        this.climbingSession = climbingSession;
         this.moves = moves;
         this.grade = grade;
     }
@@ -28,13 +35,6 @@ public class ClimbingLine extends BaseEntity {
     public ClimbingLine() {
     }
 
-    public String getRouteName() {
-        return routeName;
-    }
-
-    public void setRouteName(String routeName) {
-        this.routeName = routeName;
-    }
 
     public ClimbingArea getArea() {
         return area;
@@ -58,5 +58,13 @@ public class ClimbingLine extends BaseEntity {
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public Set<ClimbingSession> getClimbingSession() {
+        return climbingSession;
+    }
+
+    public void setClimbingSession(Set<ClimbingSession> climbingSession) {
+        this.climbingSession = climbingSession;
     }
 }
