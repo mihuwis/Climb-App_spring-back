@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ClimbingAreaResorces {
@@ -25,4 +26,11 @@ public class ClimbingAreaResorces {
     public ClimbingArea getClimbingAreaById(@PathVariable Long id){
         return repository.getReferenceById(id);
     }
+
+    @GetMapping("v1/climbing-areas/countries")
+    public Set<String> findAllCountries(){
+        return repository.findAllCountries();
+    }
+
+
 }

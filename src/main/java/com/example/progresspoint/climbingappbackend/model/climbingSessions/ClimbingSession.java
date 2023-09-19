@@ -5,6 +5,8 @@ import com.example.progresspoint.climbingappbackend.model.climbingRoutes.Climbin
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,9 @@ import java.util.Set;
 public class ClimbingSession extends NamedEntity {
 
     @ManyToMany
+    @JoinTable(name = "session_route",
+    joinColumns = @JoinColumn(name = "climbingLine_id"),
+    inverseJoinColumns = @JoinColumn(name = "climbing_session_id"))
     private Set<ClimbingLine> routesClimbed;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

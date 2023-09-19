@@ -17,7 +17,7 @@ public class ClimbingLine extends NamedEntity {
     @JsonIgnoreProperties("climbingLines")
     private ClimbingArea area;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "routesClimbed")
     private Set<ClimbingSession> climbingSession;
 
     private int moves;
@@ -33,6 +33,7 @@ public class ClimbingLine extends NamedEntity {
     }
 
     public ClimbingLine() {
+        super();
     }
 
 
